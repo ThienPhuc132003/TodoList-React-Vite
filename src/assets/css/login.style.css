@@ -1,0 +1,146 @@
+* {
+  margin: 0;
+  padding: 0;
+  font-family: "Montserrat", sans-serif;
+  box-sizing: border-box;
+}
+
+.show {
+  display: block;
+}
+.hide {
+  display: none;
+}
+
+.navigation {
+  display: flex;
+  overflow: hidden;
+  background-color: #ff9933;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 290px;
+}
+
+.nav-box {
+  display: flex;
+}
+
+.btn-box {
+  display: flex;
+  list-style: none;
+  justify-content: center;
+  align-items: center;
+}
+
+.nav-btn {
+  display: flex;
+  color: white;
+  padding: 14px 0;
+  text-decoration: none;
+  justify-content: center;
+  width: 100px;
+}
+
+.nav-btn:hover:not(.active) {
+  background-color: #bd6712;
+}
+
+.active {
+  background-color: #e67300;
+}
+.brand {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 5px 0;
+}
+
+.label {
+  position: static;
+  font-size: 15px;
+  padding: 0 10px;
+}
+.logo {
+  width: 60px;
+  padding: 0 10px;
+}
+@media (max-width: 740px) {
+  .navigation {
+    padding: 0;
+    justify-content: center;
+  }
+}
+
+@media (min-width: 740px) and (max-width: 1024px) {
+  .navigation {
+    padding: 0 120px;
+  }
+}
+
+@media (min-width: 1024px) and (max-width: 1920px) {
+}
+h1 {
+  position: relative;
+  text-align: center;
+  padding-top: 20px;
+}
+
+.loginFormBox {
+  display: flex;
+  justify-content: center;
+}
+
+.loginForm {
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  width: 300px;
+  margin-top: 10px;
+  border: 2px solid black;
+  border-radius: 20px;
+  padding: 20px 10px;
+  gap: 7px;
+}
+
+.userImageBox {
+  text-align: center;
+  margin: 20px 0 20px 0;
+}
+
+.userImage {
+  width: 150px;
+  border: 3px solid black;
+  border-radius: 100%;
+}
+
+label {
+  font-weight: bold;
+  margin-bottom: 5px;
+}
+
+.correct-border {
+  padding: 10px;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+}
+.error-border {
+  padding: 10px;
+  border: 1px solid red;
+  border-radius: 5px;
+}
+button.submit {
+  background-color: #ff9933;
+  color: white;
+  padding: 10px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+button.submit:hover {
+  background-color: #fa9128;
+}
+
+.error {
+  color: red;
+}
