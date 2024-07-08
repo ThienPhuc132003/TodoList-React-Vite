@@ -1,11 +1,12 @@
 import React from "react";
 import Proptypes from "prop-types";
-function InputField({ value, className, ...rest }) {
+const handleInputField=({ value, className, ...rest })=> {
   return <input value={value} className={className} {...rest} />;
 }
+const InputField =React.memo(handleInputField);
+export default InputField
 
-export default React.memo(InputField);
-InputField.propTypes = {
+handleInputField.propTypes = {
   value: Proptypes.string,
   className: Proptypes.string,
 };

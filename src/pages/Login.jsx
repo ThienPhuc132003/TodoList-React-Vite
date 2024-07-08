@@ -9,7 +9,8 @@ import Baselayout from "../components/layout/Baselayout";
 import Button from "../components/Button";
 import InputField from "../components/InputField";
 import userApi from "../network/userApi";
-function LoginPage() {
+// import { URL } from "../utils/ApiRoot";
+function HandleLoginPage() {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [errorMessages, setErrorMessages] = useState({});
@@ -23,6 +24,7 @@ function LoginPage() {
     };
     fetchUser();
   }, []);
+  //use this if doesnt have api 
   // const users = useMemo(
   //   () => [
   //     { username: "1", password: "1" },
@@ -184,4 +186,5 @@ function LoginPage() {
   );
 }
 
-export default React.memo(LoginPage);
+const LoginPage=React.memo(HandleLoginPage);
+export default LoginPage

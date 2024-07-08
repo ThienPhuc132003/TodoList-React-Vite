@@ -1,6 +1,6 @@
 import React from "react";
 import Proptypes from "prop-types";
-function Button(props) {
+const handleButton=(props)=> {
   const { onClick = () => {}, children = null, ...rest } = props;
   return (
     <button onClick={onClick} {...rest}>
@@ -8,9 +8,10 @@ function Button(props) {
     </button>
   );
 }
-export default React.memo(Button);
+const Button= React.memo(handleButton);
+export default Button
 
-Button.propTypes = {
+handleButton.propTypes = {
   onClick: Proptypes.func,
   children: Proptypes.node,
 };

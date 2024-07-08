@@ -6,7 +6,7 @@ import Baselayout from "../components/layout/Baselayout";
 import Button from "../components/Button";
 import InputField from "../components/InputField";
 const Task = lazy(() => import("../components/Task"));
-function TodoList() {
+function HandleTodoList() {
   const [tasks, setTasks] = useState([]);
   const [newTask, setNewTask] = useState("");
   const [taskCount, setTaskCount] = useState(0);
@@ -166,5 +166,5 @@ function TodoList() {
     </div>
   );
 }
-
-export default React.memo(TodoList);
+const TodoList=React.memo(HandleTodoList);
+export default  TodoList
