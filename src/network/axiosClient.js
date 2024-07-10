@@ -1,5 +1,4 @@
 import axios from "axios";
-
 const axiosClient = axios.create({
   baseURL: "https://667943a618a459f6394ee5b4.mockapi.io/",
   headers: {
@@ -31,4 +30,5 @@ axiosClient.interceptors.response.use(
     return Promise.reject(error);
   }
 );
+
 export default axiosClient;

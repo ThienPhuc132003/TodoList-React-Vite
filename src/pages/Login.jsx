@@ -8,8 +8,8 @@ import { setAuth } from "../utils/Auth";
 import Baselayout from "../components/layout/Baselayout";
 import Button from "../components/Button";
 import InputField from "../components/InputField";
-import userApi from "../network/userApi";
-// import { URL } from "../utils/ApiRoot";
+import IApi from "../network/IApi";
+import { METHOD_TYPE } from "../network/methodType";
 function HandleLoginPage() {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
@@ -17,14 +17,30 @@ function HandleLoginPage() {
   const [users, setUsers] = useState();
   const navigate = useNavigate();
 
+  // useEffect(() => {
+  //   const fetchUser = async () => {
+  //     const userList = await userApi.getAll();
+  //     setUsers(userList);
+  //   };
+  //   fetchUser();
+  // }, []);
+
   useEffect(() => {
-    const fetchUser = async () => {
-      const userList = await userApi.getAll();
-      setUsers(userList);
+    const fetchUsers = async () => {
+      try {
+        const userList = await IApi({
+          endpoint: "/user2",
+          method: METHOD_TYPE.GET,
+        });
+        setUsers(userList);
+        console.log(userList);
+      } catch (error) {
+        console.error("Error fetching users:", error);
+      }
     };
-    fetchUser();
+
+    fetchUsers();
   }, []);
-  //use this if doesnt have api 
   // const users = useMemo(
   //   () => [
   //     { username: "1", password: "1" },
@@ -146,7 +162,7 @@ function HandleLoginPage() {
               name="username"
               placeholder="Username"
               value={username}
-              errorMessages={errorMessages}
+              erromessages={errorMessages}
               onBlur={handleUsernameBlur}
               onFocus={handleUsernameFocus}
               onChange={handleUsernameChange}
@@ -164,7 +180,7 @@ function HandleLoginPage() {
               name="password"
               placeholder="Password"
               value={password}
-              errorMessages={errorMessages}
+              errormessages={errorMessages}
               onBlur={handlePasswordBlur}
               onFocus={handlePasswordFocus}
               onChange={handlePasswordChange}
@@ -186,5 +202,5 @@ function HandleLoginPage() {
   );
 }
 
-const LoginPage=React.memo(HandleLoginPage);
-export default LoginPage
+const LoginPage = React.memo(HandleLoginPage);
+export default LoginPage;
