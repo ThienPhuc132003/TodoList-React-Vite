@@ -1,7 +1,7 @@
 import React, { useState, useCallback, lazy } from "react";
 import { useNavigate } from "react-router-dom";
+import Cookies from "js-cookie";
 import "../assets/css/todo.style.css";
-import { setAuth } from "../utils/Auth";
 import Baselayout from "../components/layout/Baselayout";
 import Button from "../components/Button";
 import InputField from "../components/InputField";
@@ -103,9 +103,10 @@ function HandleTodoList() {
   );
 
   const handleLogout = useCallback(() => {
-    setAuth(false); // Log out the user
+    Cookies.remove("token");
     navigate("/login");
   }, [navigate]);
+
 
   const handleOnKeyDown = useCallback(
     (event) => {
@@ -166,5 +167,5 @@ function HandleTodoList() {
     </div>
   );
 }
-const TodoList=React.memo(HandleTodoList);
-export default  TodoList
+const TodoList = React.memo(HandleTodoList);
+export default TodoList;

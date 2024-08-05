@@ -2,19 +2,32 @@ import React from "react";
 import Navbar from "../Navbar";
 import PropTypes from "prop-types";
 
-const handleBaseLayout = (props) => {
-  const { showLogin = false, handleLogout = () => {}, children = null } = props;
+const BaseLayoutCompo = (props) => {
+  const {
+    showLogin = false,
+    handleLogout = () => {},
+    handleFurniturePage = () => {},
+    children = null,
+    handleCart = () => {},
+  } = props;
   return (
     <>
-      <Navbar showLogin={showLogin} handleLogout={handleLogout} />
+      <Navbar
+        showLogin={showLogin}
+        handleLogout={handleLogout}
+        handleFurniturePage={handleFurniturePage}
+        handleCart={handleCart}
+      />
       {children}
     </>
   );
 };
-const BaseLayout = React.memo(handleBaseLayout);
+const BaseLayout = React.memo(BaseLayoutCompo);
 export default BaseLayout;
-handleBaseLayout.propTypes = {
+BaseLayoutCompo.propTypes = {
   showLogin: PropTypes.bool,
   handleLogout: PropTypes.func,
+  handleFurniturePage: PropTypes.func,
   children: PropTypes.node,
+  handleCart: PropTypes.func,
 };

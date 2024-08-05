@@ -1,6 +1,7 @@
 import axios from "axios";
+import Cookies from "js-cookie";
 const axiosClient = axios.create({
-  baseURL: "https://667943a618a459f6394ee5b4.mockapi.io/",
+  baseURL: "",
   headers: {
     "Content-Type": "application/json",
   },
@@ -8,7 +9,10 @@ const axiosClient = axios.create({
 // Add a request interceptor
 axiosClient.interceptors.request.use(
   function (config) {
-    // Do something before request is sent
+    const token = Cookies.get("token");
+    if (token) {
+      config.headers.Authorization = `Bearer ${token}`;
+    }
     return config;
   },
   function (error) {
@@ -25,8 +29,10 @@ axiosClient.interceptors.response.use(
     return response.data;
   },
   function (error) {
-    // Any status codes that falls outside the range of 2xx cause this function to trigger
-    // Do something with response error
+    if (error.response.status === 401) {
+      Cookies.remove("token");
+      window.location.href = "/login";
+    }
     return Promise.reject(error);
   }
 );

@@ -1,10 +1,18 @@
 import React from "react";
 import logo from "../assets/images/logoF1.png";
 import Proptypes from "prop-types";
+import { selectTotalQuantity } from "../redux/CartSlice";
+import { useSelector } from "react-redux";
 // import PropTypes from "prop-types";
 
-const handleNavbar=(props) =>{
-  const { showLogin = false, handleLogout = () => {} } = props;
+const NavbarCompo = (props) => {
+  const {
+    showLogin = false,
+    handleFurniturePage = () => {},
+    handleLogout = () => {},
+    handleCart = () => {},
+  } = props;
+  const totalQuantity = useSelector(selectTotalQuantity);
   return (
     <>
       <div className="nav-box" />
@@ -19,7 +27,9 @@ const handleNavbar=(props) =>{
           </div>
           {showLogin && (
             <li>
-              <button className="nav-btn active">To-do list</button>
+              <button className="nav-btn active" onClick={handleFurniturePage}>
+                Furniture
+              </button>
             </li>
           )}
         </ul>
@@ -30,16 +40,30 @@ const handleNavbar=(props) =>{
                 Logout
               </button>
             </li>
+            <li>
+              <i
+                className="fa-solid fa-cart-shopping"
+                style={{
+                  color: "#ffffff",
+                  cursor: "pointer",
+                  margin: " 0 20px",
+                }}
+                onClick={handleCart}
+              ></i>
+              <i>{totalQuantity} </i>
+            </li>
           </ul>
         )}
       </div>
     </>
   );
-}
-const Navbar=React.memo(handleNavbar);
-export default Navbar
+};
+const Navbar = React.memo(NavbarCompo);
+export default Navbar;
 
-handleNavbar.propTypes = {
+NavbarCompo.propTypes = {
   showLogin: Proptypes.bool,
   handleLogout: Proptypes.func,
+  handleFurniturePage: Proptypes.func,
+  handleCart: Proptypes.func,
 };

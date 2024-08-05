@@ -1,7 +1,8 @@
 import React from "react";
 import InputField from "./InputField";
 import Proptypes from "prop-types";
-const handleTask = ({
+import Button from "./Button";
+const TaskCompo = ({
   task = () => {},
   index = 0,
   handleTaskChange,
@@ -38,9 +39,9 @@ const handleTask = ({
             >
               {task.name}
             </span>
-            <button className="edit" onClick={() => handleEditTask(index)}>
+            <Button className="edit" onClick={() => handleEditTask(index)}>
               <i className="fa-solid fa-pen-to-square"></i>
-            </button>
+            </Button>
           </>
         )}
         <button className="delete" onClick={() => handleDeleteTask(index)}>
@@ -51,10 +52,10 @@ const handleTask = ({
   );
 };
 
-const Task = React.memo(handleTask);
+const Task = React.memo(TaskCompo);
 export default Task;
 
-handleTask.propTypes = {
+TaskCompo.propTypes = {
   task: Proptypes.object.isRequired,
   index: Proptypes.number,
   handleTaskChange: Proptypes.func,

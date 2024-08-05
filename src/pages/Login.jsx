@@ -1,22 +1,21 @@
 // src/pages/LoginPage.js
-
-import React, { useState, useCallback, useEffect } from "react";
+import React, { useState, useCallback } from "react";
+import Cookies from "js-cookie";
 import { useNavigate } from "react-router-dom";
 import "../assets/css/login.style.css";
 import userLogo from "../assets/images/userIcon.jpg";
-import { setAuth } from "../utils/Auth";
 import Baselayout from "../components/layout/Baselayout";
 import Button from "../components/Button";
 import InputField from "../components/InputField";
-import IApi from "../network/IApi";
+import Api from "../network/Api";
 import { METHOD_TYPE } from "../network/methodType";
+// import axiosClient from "../network/axiosClient";
+
 function HandleLoginPage() {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [errorMessages, setErrorMessages] = useState({});
-  const [users, setUsers] = useState();
   const navigate = useNavigate();
-
   // useEffect(() => {
   //   const fetchUser = async () => {
   //     const userList = await userApi.getAll();
@@ -25,22 +24,25 @@ function HandleLoginPage() {
   //   fetchUser();
   // }, []);
 
-  useEffect(() => {
-    const fetchUsers = async () => {
-      try {
-        const userList = await IApi({
-          endpoint: "/user2",
-          method: METHOD_TYPE.GET,
-        });
-        setUsers(userList);
-        console.log(userList);
-      } catch (error) {
-        console.error("Error fetching users:", error);
-      }
-    };
+  // useEffect(() => {
+  //   const fetchUsers = async () => {
+  //     try {
+  //       const userList = await Api({
+  //         endpoint: "https://667943a618a459f6394ee5b4.mockapi.io/login",
+  //         method: METHOD_TYPE.POST,
+  //         data: {
+  //           email: username,
+  //           passWord: password,
+  //         },
+  //       });
+  //       console.log(userList);
+  //     } catch (error) {
+  //       console.error("Error fetching users:", error);
+  //     }
+  //   };
 
-    fetchUsers();
-  }, []);
+  //   fetchUsers();
+  // }, []);
   // const users = useMemo(
   //   () => [
   //     { username: "1", password: "1" },
@@ -48,9 +50,6 @@ function HandleLoginPage() {
   //   ],
   //   []
   // );
-
-  setAuth(false);
-
   const validateFields = useCallback(() => {
     const errors = {};
 
@@ -64,25 +63,32 @@ function HandleLoginPage() {
     return errors;
   }, [username, password]);
 
-  const handleLogin = useCallback(() => {
+  const handleLogin = useCallback(async () => {
     const errors = validateFields();
     setErrorMessages(errors);
-
     if (Object.keys(errors).length > 0) {
       return;
     }
 
-    const isValidUser = users.some(
-      (user) => user.username === username && user.password === password
-    );
-
-    if (isValidUser) {
-      setAuth(true);
-      navigate("/");
-    } else {
+    try {
+      const response = await Api({
+        endpoint: "https://667943a618a459f6394ee5b4.mockapi.io/login",
+        method: METHOD_TYPE.POST,
+        data: {
+          username: username,
+          password: password,
+        },
+      });
+      const { token } = response;
+      console.log(response.username);
+      if (token) {
+        Cookies.set("token", token);
+        navigate("/");
+      }
+    } catch (error) {
       setErrorMessages({ login: "Invalid username or password" });
     }
-  }, [navigate, username, password, users, validateFields]);
+  }, [navigate, username, password, validateFields]);
 
   const handleUsernameChange = (e) => {
     const value = e.target.value;
@@ -143,7 +149,19 @@ function HandleLoginPage() {
       }));
     }
   };
-
+  const handleOnkeydown = useCallback(
+    (event, passwordFieldId) => {
+      if (event.key === "Enter") {
+        const passwordField = document.getElementById(passwordFieldId);
+        if (passwordField) {
+          passwordField.focus();
+        } else {
+          handleLogin();
+        }
+      }
+    },
+    [handleLogin]
+  );
   return (
     <>
       <Baselayout showLogin={false}>
@@ -171,6 +189,7 @@ function HandleLoginPage() {
                   ? "error-border"
                   : "correct-border"
               }
+              onKeyPress={(e) => handleOnkeydown(e, "password")}
             />
             <p className="error">{errorMessages.username}</p>
             <label htmlFor="password">Password</label>
@@ -189,6 +208,7 @@ function HandleLoginPage() {
                   ? "error-border"
                   : "correct-border"
               }
+              onKeyPress={(e) => handleOnkeydown(e)}
             />
             <p className="error">{errorMessages.password}</p>
             <p className="error">{errorMessages.login}</p>
