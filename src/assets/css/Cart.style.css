@@ -146,3 +146,24 @@ h1 {
 .cart-item-list .minus-btn:hover {
   background-color: #b3b3b3;
 }
+
+@media (max-width: 740px) {
+  .cart-item {
+    width: 300px;
+    display: grid;
+    grid-template-columns: auto auto auto;
+    gap: 10px;
+    padding: 10px;
+  }
+  .cart-item .image {
+    width: 100px;
+    grid-column-start: 1;
+    grid-column-end: 2;
+  }
+}
+
+@media (min-width: 740px) and (max-width: 1024px) {
+  .cart-item {
+    width: 700px;
+  }
+}

@@ -98,11 +98,12 @@ h1 {
   justify-content: center;
   align-items: center;
   position: relative;
-  margin: 20px 400px;
+  margin: 20px auto;
   border: 1px solid #bdb7b2;
   border-radius: 20px;
   padding: 20px;
-  box-shadow: 1px -1px 5px 1px rgba(152,152,152,0.5);
+  width: 70%;
+  box-shadow: 1px -1px 5px 1px rgba(152, 152, 152, 0.5);
 }
 .box2 {
   display: flex;
@@ -146,6 +147,7 @@ h1 {
 .box1 {
   display: flex;
   flex-direction: column;
+  justify-content: center;
   align-items: center;
   position: relative;
   flex: 1;
@@ -153,6 +155,42 @@ h1 {
   flex-grow: 1;
 }
 .box1 .image {
-  margin: 20px;
+  margin: 10px;
+  width: 600px;
+}
 
+@media (max-width: 740px) {
+  .box1 .image {
+    margin: 20px;
+    width: 250px;
+  }
+  .item-detail-box {
+    flex-direction: column;
+  }
+  .box2 {
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+  }
+  .box2 .info h2 {
+    font-size: 16px;
+  }
+  .item-detail-box .add-btn {
+    width: 80%;
+  }
+}
+
+@media (min-width: 740px) and (max-width: 1024px) {
+  .box1 .image {
+    margin: 20px;
+    width: 400px;
+  }
+  .item-detail-box {
+    flex-direction: column;
+  }
+  .box2 {
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+  }
 }

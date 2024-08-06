@@ -155,12 +155,10 @@ h1 {
 }
 @media (min-width: 740px) and (max-width: 1024px) {
   .item-list-box {
-    width: 100%;
+    width: auto;
+    margin: 0 20px;
   }
   .item {
     width: calc(33% - 20px);
   }
-}
-.item-list-box .add-btn{
-  
 }

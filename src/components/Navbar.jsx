@@ -1,6 +1,7 @@
 import React from "react";
 import logo from "../assets/images/logoF1.png";
 import Proptypes from "prop-types";
+import "../assets/css/Navbar.style.css";
 import { selectTotalQuantity } from "../redux/CartSlice";
 import { useSelector } from "react-redux";
 // import PropTypes from "prop-types";
@@ -40,17 +41,12 @@ const NavbarCompo = (props) => {
                 Logout
               </button>
             </li>
-            <li>
-              <i
-                className="fa-solid fa-cart-shopping"
-                style={{
-                  color: "#ffffff",
-                  cursor: "pointer",
-                  margin: " 0 20px",
-                }}
+            <li className="cart-box">
+              <div
+                className="fa-solid fa-cart-shopping cart"
                 onClick={handleCart}
-              ></i>
-              <i>{totalQuantity} </i>
+              ></div>
+              <div className="cart-value">{totalQuantity} </div>
             </li>
           </ul>
         )}
