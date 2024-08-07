@@ -12,6 +12,9 @@ const Login = lazy(() => import("./pages/Login"));
 const Furniture = lazy(() => import("./pages/Furniture"));
 const ItemDetail = lazy(() => import("./components/layout/ItemDetail"));
 const Cart = lazy(() => import("./pages/Cart"));
+const ChairList = lazy(() => import("./pages/ChairList"));
+const TableList = lazy(() => import("./pages/TableList"));
+
 function App() {
   return (
     <Router>
@@ -21,6 +24,8 @@ function App() {
           <Route path="/" element={<PrivateRoutes />}>
             <Route index element={<Navigate to="/furniture" />} />
             <Route path="furniture" element={<Furniture />} />
+            <Route path="chair" element={<ChairList />} />
+            <Route path="table" element={<TableList />} />
             <Route path="item/:itemId" element={<ItemDetail />} />
             <Route path="cart" element={<Cart />} />
           </Route>

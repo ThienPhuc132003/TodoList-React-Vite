@@ -95,6 +95,7 @@ h1 {
   display: flex;
   flex-direction: column;
   align-items: center;
+  margin-bottom: 20px;
 }
 .cart-item {
   display: grid;
@@ -111,7 +112,7 @@ h1 {
 .cart-item .item-value {
   display: flex;
   flex-direction: row;
-  gap: 10px;
+  gap: 20px;
   align-items: center;
 }
 .cart-item .item-price {
@@ -146,7 +147,13 @@ h1 {
 .cart-item-list .minus-btn:hover {
   background-color: #b3b3b3;
 }
-
+.list-modify {
+  display: flex;
+  flex-direction: row;
+  gap: 20px;
+  justify-content: flex-end;
+  width: 1000px;
+}
 @media (max-width: 740px) {
   .cart-item {
     width: 300px;
@@ -156,14 +163,20 @@ h1 {
     padding: 10px;
   }
   .cart-item .image {
-    width: 100px;
+    width: 120px;
     grid-column-start: 1;
     grid-column-end: 2;
+  }
+  .list-modify {
+    width: 300px;
   }
 }
 
 @media (min-width: 740px) and (max-width: 1024px) {
   .cart-item {
+    width: 700px;
+  }
+  .list-modify {
     width: 700px;
   }
 }

@@ -1,4 +1,4 @@
-import React, { useCallback } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import BaseLayout from "../components/layout/Baselayout";
@@ -15,8 +15,17 @@ import {
 function HandleCartPage() {
   const navigate = useNavigate();
   const dispatch = useDispatch();
+  const [showListModify, setShowListModify] = useState(false);
   const cartItems = useSelector((state) => state.cart.items);
-
+  const calculateTotalPrice = () => {
+    return cartItems.reduce(
+      (total, item) => total + item.price * item.quantity,
+      0
+    );
+  };
+  useEffect(() => {
+    setShowListModify(cartItems.length > 0);
+  }, [cartItems]);
   const handleFurniturePage = useCallback(() => {
     navigate("/furniture");
   }, [navigate]);
@@ -77,14 +86,21 @@ function HandleCartPage() {
                 </div>
                 <div className="btn-box">
                   <i
-                    className="fa-solid fa-trash "
+                    className="fa-solid fa-trash fa-xl"
                     style={{ cursor: "pointer" }}
                     onClick={() => handleRemoveItem(item.id)}
                   ></i>
                 </div>
               </li>
             ))}
-            <Button onClick={() => handleClearCart(cartItems.id)}>Clear</Button>
+            {showListModify && (
+              <div className="list-modify" style={{}}>
+                <Button onClick={() => handleClearCart(cartItems.id)}>
+                  Clear
+                </Button>
+                <div>Total ${calculateTotalPrice()}</div>
+              </div>
+            )}
           </ul>
         </div>
       </BaseLayout>

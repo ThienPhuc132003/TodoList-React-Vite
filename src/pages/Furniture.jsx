@@ -3,11 +3,10 @@ import { useNavigate } from "react-router-dom";
 import React, { useCallback } from "react";
 import "../assets/css/furniture.style.css";
 import BaseLayout from "../components/layout/Baselayout";
-import ItemList from "../components/ItemList";
+import Button from "../components/Button";
 // import Item from "../components/Item";
 function HandleFurniturePage() {
   const navigate = useNavigate();
-  const endpoint = "https://667943a618a459f6394ee5b4.mockapi.io/Product";
   const handleLogout = useCallback(() => {
     Cookies.remove("token");
     navigate("/login");
@@ -15,17 +14,26 @@ function HandleFurniturePage() {
   const handleCart = useCallback(() => {
     navigate("/cart");
   }, [navigate]);
-  const handleItemClick = (itemId) => {
-    navigate(`/item/${itemId}`);
-  };
-
+  const handleChairList = useCallback(() => {
+    navigate("/chair");
+  }, [navigate]);
+  const handleTableList = useCallback(() => {
+    navigate("/table");
+  }, [navigate]);
   return (
     <>
       <BaseLayout showLogin handleLogout={handleLogout} handleCart={handleCart}>
         <div>
           <h1>Furniture</h1>
         </div>
-        <ItemList onClick={handleItemClick} endpoint={endpoint} />
+        <div className="furniture-list">
+          <Button className="furniture" onClick={handleChairList}>
+            Chair
+          </Button>
+          <Button className="furniture" onClick={handleTableList}>
+            Table
+          </Button>
+        </div>
       </BaseLayout>
     </>
   );

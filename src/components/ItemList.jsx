@@ -8,7 +8,13 @@ import { addItem } from "../redux/CartSlice";
 import Button from "./Button";
 
 const ItemListompo = (props) => {
-  const { endpoint, onClick = () => {}, onChange = () => {}, ...rest } = props;
+  const {
+    endpoint,
+    onClick = () => {},
+    onChange = () => {},
+    furnitureName,
+    ...rest
+  } = props;
   const dispatch = useDispatch();
   const [itemData, setItemData] = useState([]);
 
@@ -29,26 +35,32 @@ const ItemListompo = (props) => {
   };
 
   return (
-    <div className="item-list-box">
-      <div className="item-list">
-        {itemData.map((item) => (
-          <div className="item" key={item.id} onChange={onChange} {...rest}>
-            <img
-              src={item.image}
-              alt={item.name}
-              onClick={() => onClick(item.id)}
-            />
-            <h2>{item.name}</h2>
-            <p>Price: ${item.price}</p>
-            <div className="btn-box">
-              <Button className="add-btn" onClick={() => handleAddToCart(item)}>
-                Add to Cart
-              </Button>
+    <>
+      <h1>{furnitureName}</h1>
+      <div className="item-list-box">
+        <div className="item-list">
+          {itemData.map((item) => (
+            <div className="item" key={item.id} onChange={onChange} {...rest}>
+              <img
+                src={item.image}
+                alt={item.name}
+                onClick={() => onClick(item.id)}
+              />
+              <h2>{item.name}</h2>
+              <p>Price: ${item.price}</p>
+              <div className="btn-box">
+                <Button
+                  className="add-btn"
+                  onClick={() => handleAddToCart(item)}
+                >
+                  Add to Cart
+                </Button>
+              </div>
             </div>
-          </div>
-        ))}
+          ))}
+        </div>
       </div>
-    </div>
+    </>
   );
 };
 
@@ -59,4 +71,5 @@ ItemListompo.propTypes = {
   onClick: PropTypes.func,
   onChange: PropTypes.func,
   endpoint: PropTypes.string,
+  furnitureName: PropTypes.string,
 };
